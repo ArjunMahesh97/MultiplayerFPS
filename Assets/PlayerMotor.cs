@@ -8,6 +8,10 @@ public class PlayerMotor : MonoBehaviour {
 
     private Vector3 velocity = Vector3.zero;
     private Vector3 rotation = Vector3.zero;
+    private Vector3 camrotation = Vector3.zero;
+
+    public Camera cam;
+
 
     private Rigidbody rigidBody;
 
@@ -35,6 +39,11 @@ public class PlayerMotor : MonoBehaviour {
     private void PerformRotation()
     {
         rigidBody.MoveRotation(transform.rotation * Quaternion.Euler(rotation));
+
+        if (cam != null)
+        {
+            cam.transform.Rotate(-camrotation);
+        }
     }
 
     private void PerformMovement()
@@ -48,5 +57,10 @@ public class PlayerMotor : MonoBehaviour {
     public void Rotate(Vector3 rot)
     {
         rotation = rot;
+    }
+
+    public void RotateCamera(Vector3 cam_rot)
+    {
+        camrotation = cam_rot;
     }
 }

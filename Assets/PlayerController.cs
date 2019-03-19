@@ -24,13 +24,14 @@ public class PlayerController : MonoBehaviour {
         Vector3 movVertical = transform.forward * zMov;
 
         Vector3 vel = (movHorizontal + movVertical).normalized * speed;
-
         motor.Move(vel);
 
         float yRot = Input.GetAxisRaw("Mouse X");
-
         Vector3 rot = new Vector3(0f, yRot, 0f) * lookSensitivity;
-
         motor.Rotate(rot);
-	}
+
+        float xRot = Input.GetAxisRaw("Mouse Y");
+        Vector3 cam_rot = new Vector3(xRot, 0f, 0f) * lookSensitivity;
+        motor.RotateCamera(cam_rot);
+    }
 }
