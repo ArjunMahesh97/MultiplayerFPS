@@ -41,8 +41,8 @@ public class PlayerShoot : NetworkBehaviour {
     }
 
     [Command]
-    void CmdPlayerShot(string ID)
+    void CmdPlayerShot(string PlayerID)
     {
-        Debug.Log(ID + " has been shot");
+        Debug.Log(PlayerID + " has been shot");
     }
 }
