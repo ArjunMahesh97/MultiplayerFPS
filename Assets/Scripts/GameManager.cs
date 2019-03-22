@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,10 +19,15 @@ public class GameManager : MonoBehaviour {
 		
 	}
 
-    public void RegisterPlayer(string netID,Player player)
+    public static void RegisterPlayer(string netID,Player player)
     {
         string playerID = PLAYER_ID_PREFIX + netID;
         players.Add(playerID, player);
         player.transform.name = playerID;
+    }
+
+    public static void UnregisterPlayer(string playerID)
+    {
+        players.Remove(playerID);
     }
 }
