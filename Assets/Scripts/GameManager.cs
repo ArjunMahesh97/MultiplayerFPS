@@ -30,4 +30,25 @@ public class GameManager : MonoBehaviour {
     {
         players.Remove(playerID);
     }
+
+    public static Player getPlayer(string playerID)
+    {
+        return players[playerID];
+    }
+
+ /*   private void OnGUI()
+    {
+        GUILayout.BeginArea(new Rect(200,200, 200, 500));
+        GUILayout.BeginVertical();
+
+        foreach(string playerID in players.Keys)
+        {
+            GUILayout.Label(playerID + "-" + players[playerID].transform.name);
+        }
+
+        GUILayout.EndVertical();
+        GUILayout.EndArea();
+    }
+*/
+
 }
