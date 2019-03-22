@@ -15,17 +15,39 @@ public class Player : NetworkBehaviour {
     }
 
     [SerializeField] private int maxHealth = 100;
+    [SerializeField] private Behaviour[] disableOnDeath;
+    private bool[] wasEnabled;
 
     [SyncVar] private int currentHealth;
 
-    private void Awake()
+    public void Setup()
     {
+        wasEnabled = new bool[disableOnDeath.Length];
+        for(int i = 0; i < wasEnabled.Length; i++)
+        {
+            wasEnabled[i] = disableOnDeath[i].enabled;  
+        }
+
         SetDefaults();
     }
 
     public void SetDefaults() {
+        IsDead = false;
         currentHealth = maxHealth;
+
+        for(int i = 0; i < disableOnDeath.Length; i++)
+        {
+            disableOnDeath[i].enabled = wasEnabled[i];
+        }
+
+        Collider col = GetComponent<Collider>();
+        if (col != null)
+        {
+            col.enabled = true;
+        }
     }
+
+    
 
 
     [ClientRpc]
@@ -42,13 +64,36 @@ public class Player : NetworkBehaviour {
         {
             Die();
         }
+
+        StartCoroutine(Respawn());
     }
 
     private void Die()
     {
         IsDead = true;
 
+        for(int i = 0; i < disableOnDeath.Length; i++)
+        {
+            disableOnDeath[i].enabled = false;
+        }
+
+        Collider col = GetComponent<Collider>();
+        if (col != null)
+        {
+            col.enabled = false;
+        }
+
         Debug.Log(transform.name + " is DEAD!");
+    }
+
+    IEnumerator Respawn()
+    {
+        yield return new WaitForSeconds(GameManager.instance.matchSettings.respawnTime);
+
+        SetDefaults();
+        Transform spawnPoint = NetworkManager.singleton.GetStartPosition();
+        transform.position = spawnPoint.position;
+        transform.rotation = spawnPoint.rotation;
     }
 
     // Use this for initialization

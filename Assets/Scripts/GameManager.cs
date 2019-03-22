@@ -5,6 +5,22 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
 
+    public static GameManager instance;
+
+    public MatchSettings matchSettings;
+
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Debug.LogError("multiple gamemanager");
+        }
+        else
+        {
+            instance = this;
+        }
+    }
+    #region PlayerTracking
     private static Dictionary<string, Player> players = new Dictionary<string, Player>();
 
     private const string PLAYER_ID_PREFIX = "Player ";
@@ -36,19 +52,20 @@ public class GameManager : MonoBehaviour {
         return players[playerID];
     }
 
- /*   private void OnGUI()
-    {
-        GUILayout.BeginArea(new Rect(200,200, 200, 500));
-        GUILayout.BeginVertical();
+    /*   private void OnGUI()
+       {
+           GUILayout.BeginArea(new Rect(200,200, 200, 500));
+           GUILayout.BeginVertical();
 
-        foreach(string playerID in players.Keys)
-        {
-            GUILayout.Label(playerID + "-" + players[playerID].transform.name);
-        }
+           foreach(string playerID in players.Keys)
+           {
+               GUILayout.Label(playerID + "-" + players[playerID].transform.name);
+           }
 
-        GUILayout.EndVertical();
-        GUILayout.EndArea();
-    }
-*/
+           GUILayout.EndVertical();
+           GUILayout.EndArea();
+       }
+   */
+    #endregion
 
 }
