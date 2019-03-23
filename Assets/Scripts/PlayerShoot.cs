@@ -8,15 +8,20 @@ public class PlayerShoot : NetworkBehaviour {
 
     private const string PLAYER_TAG = "Player";
 
-    public PlayerWeapon weapon;
-
+    [SerializeField] private PlayerWeapon weapon;
     [SerializeField] private Camera cam;
-
     [SerializeField] LayerMask mask;
+    [SerializeField] GameObject weaponGFX;
+    [SerializeField] string weaponLayerName = "Weapon";
 
 	// Use this for initialization
 	void Start () {
-		
+        if (cam == null)
+        {
+            this.enabled = false;
+        }
+
+        weaponGFX.layer = LayerMask.NameToLayer(weaponLayerName);
 	}
 	
 	// Update is called once per frame
