@@ -10,6 +10,7 @@ public class WeaponManager : NetworkBehaviour {
     [SerializeField] private Transform weaponHolder;
 
     private PlayerWeapon currentWeapon;
+    private WeaponGraphics currentGraphics;
 
 	// Use this for initialization
 	void Start () {
@@ -24,16 +25,28 @@ public class WeaponManager : NetworkBehaviour {
     void EquipWeapon(PlayerWeapon weapon){
         currentWeapon = weapon;
 
-        GameObject weaponInst = Instantiate(weapon.graphics, weaponHolder.position, weaponHolder.rotation);
+        GameObject weaponInst = (GameObject)Instantiate(weapon.graphics, weaponHolder.position, weaponHolder.rotation);
         weaponInst.transform.SetParent(weaponHolder);
+
+        currentGraphics = weaponInst.GetComponent<WeaponGraphics>();
+        if (currentGraphics = null)
+        {
+            Debug.LogError("No graphics component on weapon: " + weaponInst.name);
+        }
+
         if (isLocalPlayer)
         {
-            weaponInst.layer = LayerMask.NameToLayer(weaponLayerName);
+            Util.SetLayerRecursively(weaponInst, LayerMask.NameToLayer(weaponLayerName));
         }
     }
 
     public PlayerWeapon GetCurrentWeapon()
     {
         return currentWeapon;
+    }
+
+    public WeaponGraphics GetCurrentGraphics()
+    {
+        return currentGraphics;
     }
 }
