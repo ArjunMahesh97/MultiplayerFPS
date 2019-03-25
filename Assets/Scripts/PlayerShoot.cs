@@ -50,7 +50,14 @@ public class PlayerShoot : NetworkBehaviour {
     [Client]
     void Shoot()
     {
-        Debug.Log("SHOOT!");
+
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+
+        CmdOnShoot();
+
         RaycastHit hit;
         if (Physics.Raycast(cam.transform.position,cam.transform.forward,out hit, currentWeapon.range,mask))
         {
@@ -59,6 +66,18 @@ public class PlayerShoot : NetworkBehaviour {
                 CmdPlayerShot(hit.collider.name, currentWeapon.damage);
             }
         }
+    }
+
+    [Command]
+    void CmdOnShoot()
+    {
+        RpcShootEffect();
+    }
+
+    [ClientRpc]
+    void RpcShootEffect()
+    {
+        weaponManager.GetCurrentGraphics().muzzleFlash.Play();
     }
 
     [Command]

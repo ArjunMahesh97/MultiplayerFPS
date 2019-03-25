@@ -22,6 +22,16 @@ public class WeaponManager : NetworkBehaviour {
 		
 	}
 
+    public PlayerWeapon GetCurrentWeapon()
+    {
+        return currentWeapon;
+    }
+
+    public WeaponGraphics GetCurrentGraphics()
+    {
+        return currentGraphics;
+    }
+
     void EquipWeapon(PlayerWeapon weapon){
         currentWeapon = weapon;
 
@@ -29,7 +39,8 @@ public class WeaponManager : NetworkBehaviour {
         weaponInst.transform.SetParent(weaponHolder);
 
         currentGraphics = weaponInst.GetComponent<WeaponGraphics>();
-        if (currentGraphics = null)
+        Debug.Log(currentGraphics);
+        if (currentGraphics == null)
         {
             Debug.LogError("No graphics component on weapon: " + weaponInst.name);
         }
@@ -40,13 +51,4 @@ public class WeaponManager : NetworkBehaviour {
         }
     }
 
-    public PlayerWeapon GetCurrentWeapon()
-    {
-        return currentWeapon;
-    }
-
-    public WeaponGraphics GetCurrentGraphics()
-    {
-        return currentGraphics;
-    }
 }
