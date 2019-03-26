@@ -65,6 +65,8 @@ public class PlayerShoot : NetworkBehaviour {
             {
                 CmdPlayerShot(hit.collider.name, currentWeapon.damage);
             }
+
+            CmdonHit(hit.point, hit.normal);
         }
     }
 
@@ -93,7 +95,8 @@ public class PlayerShoot : NetworkBehaviour {
     [Command]
     void CmdonHit(Vector3 pos, Vector3 normal)
     {
-
+        GameObject hitEffect = (GameObject)Instantiate(weaponManager.GetCurrentGraphics().hitEffectPrefab, pos, Quaternion.LookRotation(normal));
+        Destroy(hitEffect,0.5f);
     }
 
     [ClientRpc]
