@@ -89,4 +89,18 @@ public class PlayerShoot : NetworkBehaviour {
 
         player.RpcTakeDamage(damage);
     }
+
+    [Command]
+    void CmdonHit(Vector3 pos, Vector3 normal)
+    {
+
+    }
+
+    [ClientRpc]
+    void RpcHitEffect(Vector3 pos, Vector3 normal)
+    {
+        
+    }
+
+
 }
