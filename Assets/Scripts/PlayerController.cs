@@ -23,10 +23,11 @@ public class PlayerController : MonoBehaviour {
     //[SerializeField] private JointDriveMode jointMode = JointDriveMode.Position;
     [SerializeField] private float jointSpring = 20f;
     [SerializeField] private float jointMaxForce = 40f;
+    [SerializeField] private LayerMask environmentMask;
 
     private PlayerMotor motor;
     private ConfigurableJoint joint;
-    private Animator animator;
+    private Animator animator;   
 
 	// Use this for initialization
 	void Start () {
@@ -39,6 +40,17 @@ public class PlayerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        RaycastHit hit;
+        if(Physics.Raycast(transform.position,Vector3.down,out hit, 100f, environmentMask))
+        {
+            joint.targetPosition = new Vector3(0, -hit.point.y, 0);
+        }
+        else
+        {
+            joint.targetPosition = new Vector3(0f, 0f, 0f);
+        }
+
+
         float xMov = Input.GetAxis("Horizontal");
         float zMov = Input.GetAxis("Vertical");
 
