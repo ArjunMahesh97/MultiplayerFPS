@@ -16,6 +16,8 @@ public class Player : NetworkBehaviour {
 
     [SerializeField] private int maxHealth = 100;
     [SerializeField] private Behaviour[] disableOnDeath;
+    [SerializeField] private GameObject deathEffect;
+
     private bool[] wasEnabled;
 
     [SyncVar] private int currentHealth;
@@ -65,7 +67,7 @@ public class Player : NetworkBehaviour {
             Die();
         }
 
-        StartCoroutine(Respawn());
+        
     }
 
     private void Die()
@@ -83,7 +85,12 @@ public class Player : NetworkBehaviour {
             col.enabled = false;
         }
 
-        Debug.Log(transform.name + " is DEAD!");
+        //Debug.Log(transform.name + " is DEAD!");
+
+        GameObject deathEffectInstance = (GameObject)Instantiate(deathEffect, transform.position, Quaternion.identity);
+        Destroy(deathEffectInstance, 3f);
+
+        StartCoroutine(Respawn());
     }
 
     IEnumerator Respawn()
@@ -103,6 +110,13 @@ public class Player : NetworkBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            RpcTakeDamage(9999999);
+        }
 	}
 }
