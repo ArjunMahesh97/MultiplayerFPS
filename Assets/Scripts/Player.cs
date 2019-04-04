@@ -15,8 +15,11 @@ public class Player : NetworkBehaviour {
     }
 
     [SerializeField] private int maxHealth = 100;
-    [SerializeField] private Behaviour[] disableOnDeath;
     [SerializeField] private GameObject deathEffect;
+
+    [SerializeField] private Behaviour[] disableOnDeath;
+    [SerializeField] private GameObject[] disableObjectsOnDeath;
+    
 
     private bool[] wasEnabled;
 
@@ -42,10 +45,20 @@ public class Player : NetworkBehaviour {
             disableOnDeath[i].enabled = wasEnabled[i];
         }
 
+        for (int i = 0; i < disableObjectsOnDeath.Length; i++)
+        {
+            disableObjectsOnDeath[i].SetActive(true);
+        }
+
         Collider col = GetComponent<Collider>();
         if (col != null)
         {
             col.enabled = true;
+        }
+
+        if (isLocalPlayer)
+        {
+            GameManager.instance.SetSceneCamera(true);
         }
     }
 
@@ -79,6 +92,11 @@ public class Player : NetworkBehaviour {
             disableOnDeath[i].enabled = false;
         }
 
+        for (int i = 0; i < disableObjectsOnDeath.Length; i++)
+        {
+            disableObjectsOnDeath[i].SetActive(false);
+        }
+
         Collider col = GetComponent<Collider>();
         if (col != null)
         {
@@ -89,6 +107,13 @@ public class Player : NetworkBehaviour {
 
         GameObject deathEffectInstance = (GameObject)Instantiate(deathEffect, transform.position, Quaternion.identity);
         Destroy(deathEffectInstance, 3f);
+
+        if (isLocalPlayer)
+        {
+            GameManager.instance.SetSceneCamera(true);
+        }
+
+
 
         StartCoroutine(Respawn());
     }

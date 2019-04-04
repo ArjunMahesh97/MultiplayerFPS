@@ -184,7 +184,7 @@ MonoBehaviour:
   m_MinSize: {x: 232, y: 492}
   m_MaxSize: {x: 10002, y: 14042}
   vertical: 1
-  controlID: 38
+  controlID: 25
 --- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -417,9 +417,9 @@ MonoBehaviour:
     height: 436
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: f4060000
+    m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: e4fbffff00000000
+    m_ExpandedIDs: c0e7fffff6f1ffffe4fbffff00000000ba280000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -479,18 +479,18 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Scripts
+    - Assets/Prefabs
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scripts
+  - Assets/Prefabs
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\CODING\GameDev\projects\Multiplayer FPS
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: f4260000
-    m_LastClickedID: 9972
+    m_SelectedIDs: 08270000
+    m_LastClickedID: 9992
     m_ExpandedIDs: 0000000036250000842500008c25000052260000ca2600004227000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -547,7 +547,7 @@ MonoBehaviour:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
     m_HadKeyboardFocusLastEvent: 1
-    m_ExpandedInstanceIDs: a0020000ae1e0000002600005ca0fbff08250000be2c000012290000d0330000e82a0000805d0000bae5fffff8250000a82600001c26000096260000ca270000
+    m_ExpandedInstanceIDs: a0020000ae1e0000002600005ca0fbff08250000be2c000012290000d0330000e82a0000805d0000bae5fffff82500001c26000096260000ca270000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -571,7 +571,7 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
     m_NewAssetIndexInList: -1
-    m_ScrollPosition: {x: 0, y: 89}
+    m_ScrollPosition: {x: 0, y: 0}
     m_GridSize: 64
   m_DirectoriesAreaWidth: 110
 --- !u!114 &17
@@ -596,19 +596,19 @@ MonoBehaviour:
   m_DepthBufferBits: 32
   m_Pos:
     serializedVersion: 2
-    x: -31642
-    y: -31951
+    x: 405
+    y: 100
     width: 1137
     height: 798
   m_SceneLighting: 0
-  lastFramingTime: 12418.595875866318
+  lastFramingTime: 1058.1883386482627
   m_2DMode: 0
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 15.151904, y: 4.999998, z: -0.1893125}
+    m_Target: {x: 2.7204924, y: -3.9986153, z: 6.486808}
     speed: 2
-    m_Value: {x: 15.151904, y: 4.999998, z: -0.1893125}
+    m_Value: {x: 2.7204924, y: -3.9986153, z: 6.486808}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -631,13 +631,13 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: 0.05380371, y: -0.6583686, z: -0.047276087, w: -0.7492803}
+    m_Target: {x: 0.2906956, y: -0.2534844, z: 0.080169804, w: 0.91913795}
     speed: 2
-    m_Value: {x: -0.05380371, y: 0.6583686, z: 0.047276087, w: 0.7492803}
+    m_Value: {x: 0.2906956, y: -0.2534844, z: 0.080169804, w: 0.91913795}
   m_Size:
-    m_Target: 2.857884
+    m_Target: 27.81904
     speed: 2
-    m_Value: 2.857884
+    m_Value: 27.81904
   m_Ortho:
     m_Target: 0
     speed: 2
