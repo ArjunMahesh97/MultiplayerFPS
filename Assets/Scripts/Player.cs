@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
+[RequireComponent(typeof(PlayerSetup))]
 public class Player : NetworkBehaviour {
 
     [SyncVar]
@@ -16,6 +17,7 @@ public class Player : NetworkBehaviour {
 
     [SerializeField] private int maxHealth = 100;
     [SerializeField] private GameObject deathEffect;
+    [SerializeField] private GameObject spawnEffect;
 
     [SerializeField] private Behaviour[] disableOnDeath;
     [SerializeField] private GameObject[] disableObjectsOnDeath;
@@ -59,7 +61,11 @@ public class Player : NetworkBehaviour {
         if (isLocalPlayer)
         {
             GameManager.instance.SetSceneCamera(true);
+            GetComponent<PlayerSetup>().playerUIInstance.SetActive(true);
         }
+
+        GameObject spawnEffectInstance = (GameObject)Instantiate(spawnEffect, transform.position, Quaternion.identity);
+        Destroy(spawnEffectInstance, 3f);
     }
 
     
@@ -111,6 +117,7 @@ public class Player : NetworkBehaviour {
         if (isLocalPlayer)
         {
             GameManager.instance.SetSceneCamera(true);
+            GetComponent<PlayerSetup>().playerUIInstance.SetActive(false);
         }
 
 
@@ -122,10 +129,11 @@ public class Player : NetworkBehaviour {
     {
         yield return new WaitForSeconds(GameManager.instance.matchSettings.respawnTime);
 
-        SetDefaults();
         Transform spawnPoint = NetworkManager.singleton.GetStartPosition();
         transform.position = spawnPoint.position;
         transform.rotation = spawnPoint.rotation;
+
+        SetDefaults();
     }
 
     // Use this for initialization
