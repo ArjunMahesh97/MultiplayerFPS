@@ -35,9 +35,9 @@ public class PlayerSetup : NetworkBehaviour {
                 Debug.Log("No UI");
 
             ui.SetController(GetComponent<PlayerController>());
-        }
 
-        GetComponent<Player>().Setup();
+            GetComponent<Player>().PlayerSetup();
+        }                
 	}
 
     private void SetLayerRecursively(GameObject obj, int newLayer)
