@@ -24,14 +24,18 @@ public class Player : NetworkBehaviour {
     
 
     private bool[] wasEnabled;
+    private bool firstSetup = true;
 
     [SyncVar] private int currentHealth;
 
-    public void PlayerSetup()
-    {               
-        GameManager.instance.SetSceneCamera(false);
-        GetComponent<PlayerSetup>().playerUIInstance.SetActive(true);
-   
+    public void SetupPlayer()
+    {
+        if (isLocalPlayer)
+        {
+            GameManager.instance.SetSceneCamera(false);
+            GetComponent<PlayerSetup>().playerUIInstance.SetActive(true);
+        }
+
         CmdBroadcastNewPlayerSetup();        
     }
 
@@ -44,10 +48,14 @@ public class Player : NetworkBehaviour {
     [ClientRpc]
     private void RpcSetupPlayerOnAllClients()
     {
-        wasEnabled = new bool[disableOnDeath.Length];
-        for (int i = 0; i < wasEnabled.Length; i++)
+        if (firstSetup)
         {
-            wasEnabled[i] = disableOnDeath[i].enabled;
+            wasEnabled = new bool[disableOnDeath.Length];
+            for (int i = 0; i < wasEnabled.Length; i++)
+            {
+                wasEnabled[i] = disableOnDeath[i].enabled;
+            }
+            firstSetup = false;
         }
 
         SetDefaults();
@@ -77,9 +85,6 @@ public class Player : NetworkBehaviour {
         GameObject spawnEffectInstance = (GameObject)Instantiate(spawnEffect, transform.position, Quaternion.identity);
         Destroy(spawnEffectInstance, 3f);
     }
-
-    
-
 
     [ClientRpc]
     public void RpcTakeDamage(int amount)
@@ -143,10 +148,9 @@ public class Player : NetworkBehaviour {
         transform.position = spawnPoint.position;
         transform.rotation = spawnPoint.rotation;
 
-        GameManager.instance.SetSceneCamera(false);
-        GetComponent<PlayerSetup>().playerUIInstance.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
 
-        SetDefaults();
+        SetupPlayer();
     }
 
     // Use this for initialization
@@ -155,7 +159,7 @@ public class Player : NetworkBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	/*void Update () {
         if (!isLocalPlayer)
         {
             return;
@@ -164,5 +168,5 @@ public class Player : NetworkBehaviour {
         {
             RpcTakeDamage(9999999);
         }
-	}
+	}*/
 }

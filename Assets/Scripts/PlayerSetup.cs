@@ -36,7 +36,7 @@ public class PlayerSetup : NetworkBehaviour {
 
             ui.SetController(GetComponent<PlayerController>());
 
-            GetComponent<Player>().PlayerSetup();
+            GetComponent<Player>().SetupPlayer();
         }                
 	}
 
@@ -74,7 +74,8 @@ public class PlayerSetup : NetworkBehaviour {
 
     private void OnDisable()
     {
-        GameManager.instance.SetSceneCamera(true);
+        if(isLocalPlayer)
+            GameManager.instance.SetSceneCamera(true);
 
         GameManager.UnregisterPlayer(transform.name);
 
