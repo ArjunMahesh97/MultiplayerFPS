@@ -59,6 +59,8 @@ public class JoinGame : MonoBehaviour {
         {
             GameObject roomListItem = Instantiate(roomListItemPrefab);
             roomListItem.transform.SetParent(roomListParent);
+
+            roomList.Add(roomListItem);
         }
     }
 
