@@ -26,15 +26,16 @@ public class HostGame : MonoBehaviour {
 
     public void SetRoomName(string name)
     {
+        //Debug.Log(name);
         roomName = name;
-        Debug.Log(roomName);
+        //Debug.Log(roomName);
     }
 
     public void CreateRoom()
     {
         if (roomName != "" && roomName != null)
         {
-            Debug.Log("a");
+            //Debug.Log("a");
             networkManager.matchMaker.CreateMatch(roomName, roomSize, true, "", "", "", 0, 0, networkManager.OnMatchCreate);
         }
     }
