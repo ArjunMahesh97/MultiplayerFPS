@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 using UnityEngine.Networking.Match;
-using System;
 
 public class JoinGame : MonoBehaviour {
 
@@ -30,7 +29,9 @@ public class JoinGame : MonoBehaviour {
 
     public void RefreshRoom()
     {
-        networkManager.matchMaker.ListMatches(0, 20, "", true, 0, 0 OnMatchList);
+        ClearRoomList();
+
+        networkManager.matchMaker.ListMatches(0, 20, "", true, 0, 0, OnMatchList);
         status.text = "Loading...";
     }
 
@@ -44,8 +45,24 @@ public class JoinGame : MonoBehaviour {
             return;
         }
 
-        ClearRoomList();
+        foreach (MatchInfoSnapshot match in matchList)
+        {
+            GameObject roomListItemGO = Instantiate(roomListItemPrefab);
+            roomListItemGO.transform.SetParent(roomListParent);
 
+            RoomListItem roomListItem1 = roomListItemGO.GetComponent<RoomListItem>();
+            if (roomListItem1 != null)
+            {
+                roomListItem1.Setup(match, JoinRoom);
+            }
+
+            roomList.Add(roomListItemGO);
+        }
+
+        if (roomList.Count == 0)
+        {
+            status.text = "No rooms at the moment";
+        }
     }
 
     private void ClearRoomList()
@@ -55,13 +72,13 @@ public class JoinGame : MonoBehaviour {
             Destroy(roomList[i]);
         }
         roomList.Clear();
-        foreach(MatchInfoSnapshot match in matchList.matches)
-        {
-            GameObject roomListItem = Instantiate(roomListItemPrefab);
-            roomListItem.transform.SetParent(roomListParent);
 
-            roomList.Add(roomListItem);
-        }
+    }
+
+    public void JoinRoom(MatchInfoSnapshot match)
+    {
+        networkManager.matchMaker.JoinMatch(match.networkId, "", "", "", 0, 0, networkManager.OnMatchJoined);
+        status.text = "JOINING...";
     }
 
     // Update is called once per frame
