@@ -27,6 +27,7 @@ public class HostGame : MonoBehaviour {
     public void SetRoomName(string name)
     {
         roomName = name;
+        Debug.Log(roomName);
     }
 
     public void CreateRoom()
