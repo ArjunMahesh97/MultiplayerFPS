@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Database Control Free/Demos/C#/DCF_Demo_C#.unity
+- path: Assets/Login.unity
   isLoaded: 1
   isActive: 1
